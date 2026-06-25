@@ -3,167 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rachmat Andi Koro | Profil Portfolio</title>
+    <title>Rachmat Andi Koro | Technology Specialist</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #34495e;
-            --accent-color: #3498db;
-            --text-color: #333;
-            --bg-color: #f8f9fa;
+            --bg-color: #020617;
+            --card-bg: rgba(15, 23, 42, 0.8);
+            --accent-color: #38bdf8;
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
         }
 
         * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0; padding: 0; box-sizing: border-box;
         }
 
         body {
             background-color: var(--bg-color);
-            color: var(--text-color);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
             line-height: 1.6;
         }
 
+        /* Background Canvas */
+        #bg-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            z-index: -1;
+        }
+
+        /* Hero Section */
         header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 4rem 2rem;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-        }
-
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        header p {
-            font-size: 1.2rem;
-            color: #bdc3c7;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
             padding: 2rem;
+        }
+
+        .name-title {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #fff, var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .typewriter-container {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            min-height: 1.6em;
+        }
+
+        /* Container & Cards */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         section {
-            background: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            margin-bottom: 2rem;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 3rem;
+            border-radius: 24px;
+            margin-bottom: 3rem;
         }
 
         h2 {
-            color: var(--primary-color);
-            border-bottom: 2px solid var(--accent-color);
-            padding-bottom: 0.5rem;
-            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        ul {
-            list-style-position: inside;
-            margin-left: 1rem;
+        h2::before {
+            content: '';
+            width: 30px;
+            height: 4px;
+            background: var(--accent-color);
+            border-radius: 2px;
         }
 
-        li {
+        .expertise-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .skill-card {
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            transition: transform 0.3s;
+        }
+
+        .skill-card:hover {
+            transform: scale(1.05);
+            background: rgba(56, 189, 248, 0.1);
+        }
+
+        .skill-card h3 {
+            color: var(--accent-color);
             margin-bottom: 0.5rem;
+        }
+
+        /* Projects Section */
+        .project-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
         }
 
         .project-card {
+            background: rgba(255, 255, 255, 0.02);
             border-left: 4px solid var(--accent-color);
-            padding-left: 1rem;
-            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+            border-radius: 0 16px 16px 0;
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            background: rgba(56, 189, 248, 0.05);
+            transform: translateX(10px);
         }
 
         .project-card h3 {
-            color: var(--secondary-color);
+            color: var(--accent-color);
             margin-bottom: 0.5rem;
+            font-size: 1.25rem;
         }
 
-        .links {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            margin-top: 1rem;
-        }
-
-        .links a {
-            color: white;
-            background-color: var(--accent-color);
-            padding: 0.5rem 1.5rem;
+        .btn-contact {
+            margin-top: 2rem;
+            padding: 1rem 2.5rem;
+            background: var(--accent-color);
+            color: var(--bg-color);
             text-decoration: none;
-            border-radius: 4px;
-            transition: background-color 0.3s;
+            font-weight: 700;
+            border-radius: 50px;
+            transition: 0.3s;
+            display: inline-block;
         }
 
-        .links a:hover {
-            background-color: #2980b9;
+        .btn-contact:hover {
+            box-shadow: 0 0 20px var(--accent-color);
+            transform: translateY(-3px);
         }
 
-        footer {
-            text-align: center;
-            padding: 2rem;
-            color: #7f8c8d;
-            font-size: 0.9rem;
-        }
-
-        @media (max-width: 600px) {
-            header {
-                padding: 3rem 1rem;
-            }
-            .container {
-                padding: 1rem;
-            }
+        @media (max-width: 768px) {
+            .name-title { font-size: 2.5rem; }
+            .expertise-grid { grid-template-columns: 1fr; }
+            section { padding: 2rem 1.5rem; }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Rachmat Andi Koro</h1>
-        <p>Pegawai Negeri Sipil | Spesialis Digitalisasi & Otomatisasi Alur Kerja</p>
-        <div class="links">
-            <!-- Ganti href dengan tautan asli Anda -->
-            <a href="https://github.com/USERNAME_GITHUB_ANDA">GitHub</a>
-            <a href="mailto:email@anda.com">Email</a>
-        </div>
-    </header>
-
-    <div class="container">
-        <section id="tentang">
-            <h2>Tentang Saya</h2>
-            <p>Saya adalah seorang profesional di sektor publik yang berdedikasi untuk meningkatkan efisiensi instansi melalui transformasi digital. Fokus utama saya adalah menjembatani proses manual menuju alur kerja yang terotomatisasi secara penuh. Saya juga terus aktif mengembangkan kompetensi profesional melalui pendekatan inovatif seperti <em>Design Thinking</em> dan pelatihan keterampilan digital berkelanjutan.</p>
-        </section>
-
-        <section id="keahlian">
-            <h2>Keahlian Utama</h2>
-            <ul>
-                <li><strong>Otomatisasi Dokumen:</strong> Google Forms, Form Publisher, autoCrat, Portant.</li>
-                <li><strong>Transformasi Digital:</strong> Digitalisasi pengarsipan media fisik menjadi sistem input terpusat.</li>
-                <li><strong>Pengembangan Profesional:</strong> Analisis Isu, <em>Design Thinking</em>, dan manajemen material instruksional.</li>
-            </ul>
-        </section>
-
-        <section id="proyek">
-            <h2>Proyek & Inisiatif</h2>
-            <div class="project-card">
-                <h3>Sistem Otomatisasi KLIPPING</h3>
-                <p>Menginisiasi dan mengelola proyek digitalisasi untuk menggantikan proses gunting koran manual. Sistem ini menggunakan platform formulir untuk mengumpulkan data dan secara otomatis mengonversinya menjadi dokumen PDF yang terstandarisasi, sehingga mempercepat proses pengarsipan media cetak.</p>
-            </div>
-            <div class="project-card">
-                <h3>Manajemen Material Instruksional</h3>
-                <p>Melakukan penyusunan, analisis, dan pengeditan bahan ajar (Hanjar) untuk modul Analisis Isu, memastikan materi disampaikan secara efektif dan relevan dengan standar kompetensi.</p>
-            </div>
-        </section>
-    </div>
-
-    <footer>
-        <p>&copy; 2026 Rachmat Andi Koro. Dibangun dan di-host di GitHub Pages.</p>
-    </footer>
-
-</body>
-</html>
+    <canvas id="bg-canvas"></
