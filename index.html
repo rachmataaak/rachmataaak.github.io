@@ -4,18 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rachmat Andi Koro | Technology Specialist</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #020617;
-            --card-bg: rgba(15, 23, 42, 0.8);
+            --bg-color: #030712;
+            --card-bg: rgba(17, 24, 39, 0.7);
             --accent-color: #38bdf8;
-            --text-main: #f8fafc;
-            --text-dim: #94a3b8;
+            --text-main: #f9fafb;
+            --text-dim: #9ca3af;
+            --border-color: rgba(255, 255, 255, 0.08);
         }
 
         * {
-            margin: 0; padding: 0; box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
@@ -24,13 +31,35 @@
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
             line-height: 1.6;
+            position: relative;
         }
 
-        /* Background Canvas */
-        #bg-canvas {
+        /* Efek Latar Belakang Aura Bergerak (Pure CSS) */
+        .bg-glow-1 {
             position: fixed;
-            top: 0; left: 0;
+            top: -10%;
+            left: -10%;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.12) 0%, rgba(3, 7, 18, 0) 70%);
             z-index: -1;
+            animation: floatGlow 12s infinite alternate ease-in-out;
+        }
+
+        .bg-glow-2 {
+            position: fixed;
+            bottom: -10%;
+            right: -10%;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.08) 0%, rgba(3, 7, 18, 0) 70%);
+            z-index: -1;
+            animation: floatGlow 15s infinite alternate-reverse ease-in-out;
+        }
+
+        @keyframes floatGlow {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(5%, 5%) scale(1.1); }
         }
 
         /* Hero Section */
@@ -42,49 +71,64 @@
             align-items: center;
             text-align: center;
             padding: 2rem;
+            position: relative;
         }
 
         .name-title {
             font-size: 4rem;
             font-weight: 700;
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, #fff, var(--accent-color));
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, #ffffff, #93c5fd, var(--accent-color));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            animation: fadeInDown 1s ease-out;
         }
 
-        .typewriter-container {
+        /* Efek Teks Berganti Otomatis (Pure CSS Carousel) */
+        .role-switcher {
+            height: 40px;
+            overflow: hidden;
             font-family: 'JetBrains Mono', monospace;
             font-size: 1.5rem;
             color: var(--accent-color);
-            min-height: 1.6em;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out 0.2s backwards;
         }
 
-        /* Container & Cards */
+        .role-list {
+            animation: switchRole 8s infinite ease-in-out;
+        }
+
+        .role-item {
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+        }
+
+        @keyframes switchRole {
+            0%, 45% { transform: translateY(0); }
+            50%, 95% { transform: translateY(-40px); }
+            100% { transform: translateY(0); }
+        }
+
+        /* Container & Utama */
         .container {
-            max-width: 1000px;
+            max-width: 900px;
             margin: 0 auto;
-            padding: 4rem 2rem;
-        }
-
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease-out;
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
+            padding: 0 2rem 6rem 2rem;
         }
 
         section {
             background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 3rem;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            padding: 3.5rem;
             border-radius: 24px;
             margin-bottom: 3rem;
+            animation: fadeInUp 1s ease-out;
         }
 
         h2 {
@@ -93,17 +137,18 @@
             color: var(--text-main);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         h2::before {
             content: '';
-            width: 30px;
+            width: 24px;
             height: 4px;
             background: var(--accent-color);
             border-radius: 2px;
         }
 
+        /* Grid Keahlian */
         .expertise-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -111,67 +156,127 @@
         }
 
         .skill-card {
-            padding: 1.5rem;
-            background: rgba(255, 255, 255, 0.03);
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.03);
             border-radius: 16px;
-            transition: transform 0.3s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .skill-card:hover {
-            transform: scale(1.05);
-            background: rgba(56, 189, 248, 0.1);
+            transform: translateY(-4px);
+            background: rgba(56, 189, 248, 0.06);
+            border-color: rgba(56, 189, 248, 0.3);
         }
 
         .skill-card h3 {
             color: var(--accent-color);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
+            font-size: 1.2rem;
         }
 
-        /* Projects Section */
+        /* Grid Proyek */
         .project-grid {
-            display: grid;
-            grid-template-columns: 1fr;
+            display: flex;
+            flex-direction: column;
             gap: 1.5rem;
         }
 
         .project-card {
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(255, 255, 255, 0.01);
             border-left: 4px solid var(--accent-color);
-            padding: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: 2rem;
             border-radius: 0 16px 16px 0;
             transition: all 0.3s ease;
         }
 
         .project-card:hover {
-            background: rgba(56, 189, 248, 0.05);
-            transform: translateX(10px);
+            background: rgba(56, 189, 248, 0.04);
+            transform: translateX(8px);
+            border-color: rgba(56, 189, 248, 0.2);
         }
 
         .project-card h3 {
-            color: var(--accent-color);
-            margin-bottom: 0.5rem;
-            font-size: 1.25rem;
+            color: var(--text-main);
+            margin-bottom: 0.75rem;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
-        .btn-contact {
-            margin-top: 2rem;
-            padding: 1rem 2.5rem;
+        .project-card h3::after {
+            content: '→';
+            font-size: 1.1rem;
+            color: var(--accent-color);
+            opacity: 0;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+
+        .project-card:hover h3::after {
+            opacity: 1;
+            transform: translateX(4px);
+        }
+
+        /* Tombol Aksi */
+        .btn-container {
+            display: flex;
+            gap: 1.25rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2.5rem;
+        }
+
+        .btn-primary {
+            padding: 0.85rem 2.5rem;
             background: var(--accent-color);
             color: var(--bg-color);
             text-decoration: none;
-            font-weight: 700;
+            font-weight: 600;
             border-radius: 50px;
-            transition: 0.3s;
-            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 14px rgba(56, 189, 248, 0.3);
         }
 
-        .btn-contact:hover {
-            box-shadow: 0 0 20px var(--accent-color);
-            transform: translateY(-3px);
+        .btn-primary:hover {
+            box-shadow: 0 6px 20px rgba(56, 189, 248, 0.5);
+            transform: translateY(-2px);
         }
 
+        .btn-secondary {
+            padding: 0.85rem 2.5rem;
+            background: transparent;
+            color: var(--accent-color);
+            border: 2px solid var(--accent-color);
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(56, 189, 248, 0.08);
+            transform: translateY(-2px);
+        }
+
+        /* Keyframes Animasi Masuk */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsif Ponsel Pintar */
         @media (max-width: 768px) {
             .name-title { font-size: 2.5rem; }
+            .role-switcher { font-size: 1.1rem; }
             .expertise-grid { grid-template-columns: 1fr; }
             section { padding: 2rem 1.5rem; }
         }
@@ -179,4 +284,71 @@
 </head>
 <body>
 
-    <canvas id="bg-canvas"></
+    <div class="bg-glow-1"></div>
+    <div class="bg-glow-2"></div>
+
+    <header>
+        <h1 class="name-title">Rachmat Andi Koro</h1>
+        <div class="role-switcher">
+            <div class="role-list">
+                <div class="role-item">Fleet Management System Engineer</div>
+                <div class="role-item">Senior Analyst Technology</div>
+            </div>
+        </div>
+        <a href="#about" class="btn-primary" style="box-shadow: none;">Lihat Portofolio</a>
+    </header>
+
+    <div class="container" id="about">
+        
+        <section>
+            <h2>Tentang Saya</h2>
+            <p style="color: var(--text-dim); font-size: 1.1rem; text-align: justify;">
+                Seorang spesialis teknologi yang berfokus pada integrasi ekosistem **Fleet Management System** dan **Analisis Teknologi Makro**. Memiliki rekam jejak dalam merancang otomatisasi alur kerja, implementasi IoT untuk pemantauan keselamatan armada, serta merumuskan transformasi digital yang memitigasi proses manual operasional menjadi arsitektur berbasis data yang efisien dan transparan.
+            </p>
+        </section>
+
+        <section>
+            <h2>Keahlian Utama</h2>
+            <div class="expertise-grid">
+                <div class="skill-card">
+                    <h3>Fleet Management System Engineer</h3>
+                    <p style="color: var(--text-dim); font-size: 0.95rem;">Perancangan arsitektur pemantauan armada logistik/transportasi secara *real-time*, telematika kendaraan, pengawasan kepatuhan rute, serta pemanfaatan data sensor cerdas guna meminimalkan biaya operasional.</p>
+                </div>
+                <div class="skill-card">
+                    <h3>Senior Analyst Technology</h3>
+                    <p style="color: var(--text-dim); font-size: 0.95rem;">Analisis komprehensif terhadap infrastruktur IT, audit alur kerja manajemen instansi, penyusunan studi kelayakan teknologi baru, dan digitalisasi sistem konvensional berskala besar.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Proyek & Inisiatif</h2>
+            <div class="project-grid">
+                <div class="project-card">
+                    <h3>FAMS - Fatigue Management System</h3>
+                    <p style="color: var(--text-dim); margin-top: 0.5rem;">Sistem mitigasi risiko kecelakaan berbasis IoT yang memantau tingkat kelelahan serta vitalitas pengemudi armada secara berkala. Proyek ini mengintegrasikan sensor telematika dengan analitik prediktif untuk memberikan intervensi dini demi keselamatan operasional mutlak.</p>
+                </div>
+                <div class="project-card">
+                    <h3>ABUD - Angkutan Umum Bersubsidi</h3>
+                    <p style="color: var(--text-dim); margin-top: 0.5rem;">Digitalisasi tata kelola operasional transportasi massal bersubsidi. Mengimplementasikan pelacakan posisi geografis armada secara presisi untuk mengontrol standar pelayanan minimum, transparansi subsidi, serta optimasi rute koridor perjalanan.</p>
+                </div>
+                <div class="project-card">
+                    <h3>Sistem Otomatisasi Alur Kerja KLIPPING</h3>
+                    <p style="color: var(--text-dim); margin-top: 0.5rem;">Mentransformasi proses pengarsipan media cetak konvensional menjadi terpusat secara digital. Memanfaatkan pemrosesan formulir terotomatisasi yang memangkas waktu kerja manual dan menghasilkan output dokumen PDF terstandarisasi secara instan.</p>
+                </div>
+            </div>
+        </section>
+
+        <section style="text-align: center; margin-bottom: 0;">
+            <h2>Hubungi Saya</h2>
+            <p style="color: var(--text-dim); margin-bottom: 1.5rem;">Mari berdiskusi mengenai arsitektur sistem, IoT, atau analisis teknologi strategis.</p>
+            <div class="btn-container">
+                <a href="https://www.linkedin.com/in/rachmat-andikoro/" class="btn-primary" target="_blank">LinkedIn Profil</a>
+                <a href="https://github.com/USERNAME_GITHUB_ANDA" class="btn-secondary" target="_blank">Hub GitHub</a>
+            </div>
+        </section>
+
+    </div>
+
+</body>
+</html>
